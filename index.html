@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quỹ Đồng Hành - KulaVietnam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .admin-controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .login-section input {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #138496;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status-admin {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-viewer {
+            background: #cce7ff;
+            color: #004085;
+        }
+
+        .share-section {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            background: white;
+            border-bottom-color: #007bff;
+            color: #007bff;
+        }
+
+        .tab-content {
+            padding: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #343a40;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .currency {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .debt {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .close {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏦 Quỹ Đồng Hành</h1>
+            <p>Hệ thống quản lý cổ phần và cho vay - KulaVietnam</p>
+        </div>
+
+        <!-- Admin Controls -->
+        <div class="admin-controls">
+            <div class="login-section">
+                <input type="password" id="adminPassword" placeholder="Mật khẩu Admin" />
+                <button class="btn btn-primary" onclick="login()">Đăng nhập Admin</button>
+                <button class="btn btn-warning" onclick="logout()">Đăng xuất</button>
+                <span id="loginStatus" class="status-indicator status-viewer">Chế độ xem</span>
+            </div>
+            
+            <div class="share-section">
+                <button class="btn btn-info" onclick="shareViewLink()">📤 Chia sẻ link xem</button>
+                <button class="btn btn-success" onclick="exportData()">💾 Xuất dữ liệu</button>
+                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                <button class="btn btn-warning" onclick="document.getElementById('importFile').click()">📁 Nhập dữ liệu</button>
+                <button class="btn btn-danger" onclick="clearAllData()">🗑️ Xóa tất cả</button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3 id="totalMembers">0</h3>
+                <p>Tổng thành viên</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalShares">0</h3>
+                <p>Tổng cổ phần</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalFund">0 ₫</h3>
+                <p>Tổng quỹ</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalLoans">0 ₫</h3>
+                <p>Đã cho vay</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalPaid">0 ₫</h3>
+                <p>Đã thu về</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="availableFund">0 ₫</h3>
+                <p>Quỹ khả dụng</p>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('members')">👥 Thành viên</button>
+            <button class="tab" onclick="showTab('contributions')">💰 Đóng góp</button>
+            <button class="tab" onclick="showTab('loans')">🏦 Cho vay</button>
+            <button class="tab" onclick="showTab('payments')">💳 Trả nợ</button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div id="membersTab" class="tab-content">
+            <div id="memberForm" class="form-grid hidden">
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text" id="memberName" placeholder="Nhập họ tên">
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="text" id="memberPhone" placeholder="Nhập số điện thoại">
+                </div>
+                <div class="form-group">
+                    <label>Ngày tham gia</label>
+                    <input type="date" id="memberJoinDate">
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <button class="btn btn-success" onclick="addMember()">➕ Thêm thành viên</button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Điện thoại</th>
+                            <th>Ngày tham gia</th>
+                            <th>Tổng đóng góp</th>
+                            <th>Tổng cổ phần</th>
+                            <th>Đang vay</th>
+                        </tr>
+                    </thead>
+                    <tbody id="membersTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="contributionsTab" class="tab-content hidden">
+            <div id="contributionForm" class="form-grid hidden">
+                <div class="form-group">
+                    <label>Thành viên</label>
+                    <select id="contributionMember">
+                        <option value="">Chọn thành viên</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Số tiền (VNĐ)</label>
+                    <input type="number" id="contributionAmount" placeholder="Số tiền đóng góp">
+                </div>
+                <div class="form-group">
+                    <label>Tháng</label>
+                    <select id="contributionMonth">
+                        <option value="">Chọn tháng</option>
+                        <option value="1">Tháng 1</option>
+                        <option value="2">Tháng 2</option>
+                        <option value="3">Tháng 3</option>
+                        <option value="4">Tháng 4</option>
+                        <option value="5">Tháng 5</option>
+                        <option value="6">Tháng 6</option>
+                        <option value="7">Tháng 7</option>
+                        <option value="8">Tháng 8</option>
+                        <option value="9">Tháng 9</option>
+                        <option value="10">Tháng 10</option>
+                        <option value="11">Tháng 11</option>
+                        <option value="12">Tháng 12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Năm</label>
+                    <input type="number" id="contributionYear" value="2025">
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <button class="btn btn-success" onclick="addContribution()">➕ Thêm đóng góp</button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thành viên</th>
+                            <th>Số tiền</th>
+                            <th>Số cổ phần</th>
+                            <th>Tháng/Năm</th>
+                            <th>Ngày đóng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contributionsTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="loansTab" class="tab-content hidden">
+            <div id="loanForm" class="form-grid hidden">
+                <div class="form-group">
+                    <label>Thành viên</label>
+                    <select id="loanMember">
+                        <option value="">Chọn thành viên</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Số tiền vay (VNĐ)</label>
+                    <input type="number" id="loanAmount" placeholder="Số tiền vay">
+                </div>
+                <div class="form-group">
+                    <label>Mục đích vay</label>
+                    <input type="text" id="loanPurpose" placeholder="Mục đích sử dụng">
+                </div>
+                <div class="form-group">
+                    <label>Thời hạn (tháng)</label>
+                    <input type="number" id="loanTerm" value="12" min="1" max="24">
+                </div>
+                <div class="form-group">
+                    <label>Lãi suất (%/tháng)</label>
+                    <input type="number" id="loanRate" value="1" step="0.1" min="0.5" max="3">
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <button class="btn btn-success" onclick="addLoan()">➕ Thêm khoản vay</button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thành viên</th>
+                            <th>Số tiền gốc</th>
+                            <th>Tổng phải trả</th>
+                            <th>Đã trả</th>
+                            <th>Còn lại</th>
+                            <th>Tiến độ</th>
+                            <th>Mục đích</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loansTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="paymentsTab" class="tab-content hidden">
+            <div id="paymentForm" class="form-grid hidden">
+                <div class="form-group">
+                    <label>Khoản vay</label>
+                    <select id="paymentLoan">
+                        <option value="">Chọn khoản vay</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Số tiền trả (VNĐ)</label>
+                    <input type="number" id="paymentAmount" placeholder="Số tiền trả">
+                </div>
+                <div class="form-group">
+                    <label>Ngày trả</label>
+                    <input type="date" id="paymentDate">
+                </div>
+                <div class="form-group">
+                    <label>Ghi chú</label>
+                    <input type="text" id="paymentNote" placeholder="Ghi chú (tùy chọn)">
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <button class="btn btn-success" onclick="addPayment()">➕ Thêm trả nợ</button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thành viên</th>
+                            <th>Số tiền gốc vay</th>
+                            <th>Số tiền trả</th>
+                            <th>Ngày trả</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentsTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📤 Chia sẻ link xem</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <p>Copy link sau để chia sẻ cho thành viên xem thông tin quỹ:</p>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; word-break: break-all; font-family: monospace;">
+                <span id="shareUrl"></span>
+            </div>
+            <button class="btn btn-primary" onclick="copyShareUrl()">📋 Copy link</button>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const SHARE_VALUE = 125000; // 125,000 VND per share
+        const ADMIN_PASSWORD = "admin123"; // Change this password
+
+        // Data storage
+        let data = {
+            members: [],
+            contributions: [],
+            loans: [],
+            payments: []
+        };
+
+        let isAdmin = false;
+        let currentTab = 'members';
+
+        // Initialize app
+        function init() {
+            loadData();
+            checkUrlParams();
+            updateStats();
+            updateTables();
+            updateFormOptions();
+            
+            // Set today as default date
+            document.getElementById('memberJoinDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+        }
+
+        // Check URL parameters for view-only mode
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('view') === 'only') {
+                isAdmin = false;
+                updateAdminStatus();
+                showAlert('Bạn đang ở chế độ xem dữ liệu quỹ', 'success');
+            }
+        }
+
+        // Login/Logout functions
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                updateAdminStatus();
+                showAlert('Đăng nhập thành công!', 'success');
+                document.getElementById('adminPassword').value = '';
+            } else {
+                showAlert('Mật khẩu không đúng!', 'danger');
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            updateAdminStatus();
+            showAlert('Đã đăng xuất khỏi chế độ admin', 'success');
+        }
+
+        function updateAdminStatus() {
+            const statusEl = document.getElementById('loginStatus');
+            const forms = document.querySelectorAll('.form-grid');
+            
+            if (isAdmin) {
+                statusEl.textContent = 'Chế độ Admin';
+                statusEl.className = 'status-indicator status-admin';
+                forms.forEach(form => form.classList.remove('hidden'));
+            } else {
+                statusEl.textContent = 'Chế độ xem';
+                statusEl.className = 'status-indicator status-viewer';
+                forms.forEach(form => form.classList.add('hidden'));
+            }
+        }
+
+        // Tab management
+        function showTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+            document.getElementById(tabName + 'Tab').classList.remove('hidden');
+            
+            currentTab = tabName;
+            updateFormOptions();
+        }
+
+        // Add member
+        function addMember() {
+            if (!isAdmin) {
+                showAlert('Bạn không có quyền thực hiện thao tác này!', 'danger');
+                return;
+            }
+
+            const name = document.getElementById('memberName').value.trim();
+            const phone = document.getElementById('memberPhone').value.trim();
+            const joinDate = document.getElementById('memberJoinDate').value;
+
+            if (!name) {
+                showAlert('Vui lòng nhập họ tên!', 'danger');
+                return;
+            }
+
+            const member = {
+                id: Date.now(),
+                name: name,
+                phone: phone,
+                joinDate: joinDate || new Date().toISOString().split('T')[0]
+            };
+
+            data.members.push(member);
+            saveData();
+            updateStats();
+            updateTables();
+            updateFormOptions();
+
+            // Clear form
+            document.getElementById('memberName').value = '';
+            document.getElementById('memberPhone').value = '';
+            document.getElementById('memberJoinDate').value = new Date().toISOString().split('T')[0];
+
+            showAlert('Đã thêm thành viên mới!', 'success');
+        }
+
+        // Add contribution
+        function addContribution() {
+            if (!isAdmin) {
+                showAlert('Bạn không có quyền thực hiện thao tác này!', 'danger');
+                return;
+            }
+
+            const memberId = document.getElementById('contributionMember').value;
+            const amount = parseFloat(document.getElementById('contributionAmount').value);
+            const month = document.getElementById('contributionMonth').value;
+            const year = document.getElementById('contributionYear').value;
+
+            if (!memberId || !amount || !month || !year) {
+                showAlert('Vui lòng điền đầy đủ thông tin!', 'danger');
+                return;
+            }
+
+            const shares = Math.floor(amount / SHARE_VALUE);
+
+            const contribution = {
+                id: Date.now(),
+                memberId: memberId,
+                amount: amount,
+                shares: shares,
+                month: month,
+                year: year,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            data.contributions.push(contribution);
+            saveData();
+            updateStats();
+            updateTables();
+
+            // Clear form
+            document.getElementById('contributionMember').value = '';
+            document.getElementById('contributionAmount').value = '';
+            document.getElementById('contributionMonth').value = '';
+
+            showAlert('Đã thêm đóng góp mới!', 'success');
+        }
+
+        // Add loan
+        function addLoan() {
+            if (!isAdmin) {
+                showAlert('Bạn không có quyền thực hiện thao tác này!', 'danger');
+                return;
+            }
+
+            const memberId = document.getElementById('loanMember').value;
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const purpose = document.getElementById('loanPurpose').value.trim();
+            const termMonths = parseInt(document.getElementById('loanTerm').value);
+            const interestRate = parseFloat(document.getElementById('loanRate').value);
+
+            if (!memberId || !amount || !purpose || !termMonths || !interestRate) {
+                showAlert('Vui lòng điền đầy đủ thông tin!', 'danger');
+                return;
+            }
+
+            const loan = {
+                id: Date.now(),
+                memberId: memberId,
+                amount: amount,
+                purpose: purpose,
+                termMonths: termMonths,
+                interestRate: interestRate,
+                date: new Date().toISOString().split('T')[0],
+                status: 'active'
+            };
+
+            data.loans.push(loan);
+            saveData();
+            updateStats();
+            updateTables();
+            updateFormOptions();
+
+            // Clear form
+            document.getElementById('loanMember').value = '';
+            document.getElementById('loanAmount').value = '';
+            document.getElementById('loanPurpose').value = '';
+            document.getElementById('loanTerm').value = '12';
+            document.getElementById('loanRate').value = '1';
+
+            showAlert('Đã thêm khoản vay mới!', 'success');
+        }
+
+        // Add payment
+        function addPayment() {
+            if (!isAdmin) {
+                showAlert('Bạn không có quyền thực hiện thao tác này!', 'danger');
+                return;
+            }
+
+            const loanId = document.getElementById('paymentLoan').value;
+            const amount = parseFloat(document.getElementById('paymentAmount').value);
+            const date = document.getElementById('paymentDate').value;
+            const note = document.getElementById('paymentNote').value.trim();
+
+            if (!loanId || !amount || !date) {
+                showAlert('Vui lòng điền đầy đủ thông tin!', 'danger');
+                return;
+            }
+
+            const payment = {
+                id: Date.now(),
+                loanId: loanId,
+                amount: amount,
+                date: date,
+                note: note
+            };
+
+            data.payments.push(payment);
+
+            // Check if loan is fully paid
+            const loan = data.loans.find(l => l.id.toString() === loanId);
+            if (loan) {
+                const totalPaid = getLoanPayments(loan.id).reduce((sum, p) => sum + p.amount, 0);
+                const totalOwed = calculateTotalRepayment(loan.amount, loan.interestRate, loan.termMonths);
+                
+                if (totalPaid >= totalOwed) {
+                    loan.status = 'paid';
+                }
+            }
+
+            saveData();
+            updateStats();
+            updateTables();
+            updateFormOptions();
+
+            // Clear form
+            document.getElementById('paymentLoan').value = '';
+            document.getElementById('paymentAmount').value = '';
+            document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('paymentNote').value = '';
+
+            showAlert('Đã thêm khoản trả nợ!', 'success');
+        }
+
+        // Helper functions
+        function getMemberName(memberId) {
+            const member = data.members.find(m => m.id.toString() === memberId);
+            return member ? member.name : 'Unknown';
+        }
+
+        function getMemberContributions(memberId) {
+            return data.contributions.filter(c => c.memberId === memberId.toString());
+        }
+
+        function getMemberLoans(memberId) {
+            return data.loans.filter(l => l.memberId === memberId.toString());
+        }
+
+        function getLoanPayments(loanId) {
+            return data.payments.filter(p => p.loanId === loanId.toString());
+        }
+
+        function calculateTotalInterest(amount, rate, months) {
+            return (amount * rate * months) / 100;
+        }
+
+        function calculateTotalRepayment(amount, rate, months) {
+            return amount + calculateTotalInterest(amount, rate, months);
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount) + ' ₫';
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalMembers = data.members.length;
+            const totalShares = data.contributions.reduce((sum, c) => sum + c.shares, 0);
+            const totalFund = data.contributions.reduce((sum, c) => sum + c.amount, 0);
+            const totalLoans = data.loans.reduce((sum, l) => sum + l.amount, 0);
+            const totalPaid = data.payments.reduce((sum, p) => sum + p.amount, 0);
+            const availableFund = totalFund - totalLoans + totalPaid;
+
+            document.getElementById('totalMembers').textContent = totalMembers;
+            document.getElementById('totalShares').textContent = totalShares;
+            document.getElementById('totalFund').textContent = formatCurrency(totalFund);
+            document.getElementById('totalLoans').textContent = formatCurrency(totalLoans);
+            document.getElementById('totalPaid').textContent = formatCurrency(totalPaid);
+            document.getElementById('availableFund').textContent = formatCurrency(availableFund);
+        }
+
+        // Update tables
+        function updateTables() {
+            updateMembersTable();
+            updateContributionsTable();
+            updateLoansTable();
+            updatePaymentsTable();
+        }
+
+        function updateMembersTable() {
+            const tbody = document.getElementById('membersTable');
+            tbody.innerHTML = '';
+
+            data.members.forEach(member => {
+                const contributions = getMemberContributions(member.id);
+                const loans = getMemberLoans(member.id);
+                const totalContribution = contributions.reduce((sum, c) => sum + c.amount, 0);
+                const totalShares = contributions.reduce((sum, c) => sum + c.shares, 0);
+                const activeLoans = loans.filter(l => l.status === 'active');
+                const totalActiveLoans = activeLoans.reduce((sum, l) => sum + l.amount, 0);
+
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${member.name}</td>
+                    <td>${member.phone}</td>
+                    <td>${member.joinDate}</td>
+                    <td class="currency">${formatCurrency(totalContribution)}</td>
+                    <td class="currency">${totalShares} cổ phần</td>
+                    <td class="debt">${formatCurrency(totalActiveLoans)}</td>
+                `;
+            });
+        }
+
+        function updateContributionsTable() {
+            const tbody = document.getElementById('contributionsTable');
+            tbody.innerHTML = '';
+
+            data.contributions.slice().reverse().forEach(contribution => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${getMemberName(contribution.memberId)}</td>
+                    <td class="currency">${formatCurrency(contribution.amount)}</td>
+                    <td class="currency">${contribution.shares} cổ phần</td>
+                    <td>${contribution.month}/${contribution.year}</td>
+                    <td>${contribution.date}</td>
+                `;
+            });
+        }
+
+        function updateLoansTable() {
+            const tbody = document.getElementById('loansTable');
+            tbody.innerHTML = '';
+
+            data.loans.forEach(loan => {
+                const totalRepayment = calculateTotalRepayment(loan.amount, loan.interestRate, loan.termMonths);
+                const payments = getLoanPayments(loan.id);
+                const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
+                const remaining = totalRepayment - totalPaid;
+                const progress = (totalPaid / totalRepayment) * 100;
+
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${getMemberName(loan.memberId)}</td>
+                    <td class="currency">${formatCurrency(loan.amount)}</td>
+                    <td class="debt">${formatCurrency(totalRepayment)}</td>
+                    <td class="currency">${formatCurrency(totalPaid)}</td>
+                    <td class="debt">${formatCurrency(remaining)}</td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                        ${progress.toFixed(1)}%
+                    </td>
+                    <td>${loan.purpose}</td>
+                    <td>
+                        <span class="status-indicator ${loan.status === 'active' ? 'status-admin' : 'status-viewer'}">
+                            ${loan.status === 'active' ? 'Đang vay' : 'Đã trả hết'}
+                        </span>
+                    </td>
+                `;
+            });
+        }
+
+        function updatePaymentsTable() {
+            const tbody = document.getElementById('paymentsTable');
+            tbody.innerHTML = '';
+
+            data.payments.slice().reverse().forEach(payment => {
+                const loan = data.loans.find(l => l.id.toString() === payment.loanId);
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${loan ? getMemberName(loan.memberId) : 'Unknown'}</td>
+                    <td class="debt">${loan ? formatCurrency(loan.amount) : '-'}</td>
+                    <td class="currency">${formatCurrency(payment.amount)}</td>
+                    <td>${payment.date}</td>
+                    <td>${payment.note || '-'}</td>
+                `;
+            });
+        }
+
+        // Update form options
+        function updateFormOptions() {
+            // Update member dropdowns
+            const memberSelects = ['contributionMember', 'loanMember'];
+            memberSelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                select.innerHTML = '<option value="">Chọn thành viên</option>';
+                data.members.forEach(member => {
+                    const option = document.createElement('option');
+                    option.value = member.id;
+                    option.textContent = member.name;
+                    select.appendChild(option);
+                });
+            });
+
+            // Update loan dropdown
+            const loanSelect = document.getElementById('paymentLoan');
+            loanSelect.innerHTML = '<option value="">Chọn khoản vay</option>';
+            data.loans.filter(loan => loan.status === 'active').forEach(loan => {
+                const option = document.createElement('option');
+                option.value = loan.id;
+                option.textContent = `${getMemberName(loan.memberId)} - ${formatCurrency(loan.amount)}`;
+                loanSelect.appendChild(option);
+            });
+        }
+
+        // Data management
+        function saveData() {
+            localStorage.setItem('fundData', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('fundData');
+            if (saved) {
+                data = JSON.parse(saved);
+            }
+        }
+
+        function exportData() {
+            const exportData = {
+                ...data,
+                exportDate: new Date().toISOString(),
+                summary: {
+                    totalMembers: data.members.length,
+                    totalShares: data.contributions.reduce((sum, c) => sum + c.shares, 0),
+                    totalFund: data.contributions.reduce((sum, c) => sum + c.amount, 0),
+                    totalLoans: data.loans.reduce((sum, l) => sum + l.amount, 0),
+                    totalPaid: data.payments.reduce((sum, p) => sum + p.amount, 0)
+                }
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `quy-dong-hanh-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showAlert('Đã xuất dữ liệu thành công!', 'success');
+        }
+
+        function importData(event) {
+            if (!isAdmin) {
+                showAlert('Bạn không có quyền thực hiện thao tác này!', 'danger');
+                return;
+            }
+
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // Validate imported data structure
+                    if (importedData.members && importedData.contributions && importedData.loans && importedData.payments) {
+                        data = {
+                            members: importedData.members,
+                            contributions: importedData.contributions,
+                            loans: importedData.loans,
+                            payments: importedData.payments
+                        };
+                        
+                        saveData();
+                        updateStats();
+                        updateTables();
+                        updateFormOptions();
+                        
+                        showAlert('Đã nhập dữ liệu thành công!', 'success');
+                    } else {
+                        showAlert('File dữ liệu không đúng định dạng!', 'danger');
+                    }
+                } catch (error) {
+                    showAlert('Lỗi đọc file: ' + error.message, 'danger');
+                }
+            };
+            reader.readAsText(file);
+            
+            // Reset file input
+            event.target.value = '';
+        }
+
+        function clearAllData() {
+            if (!isAdmin) {
+                showAlert('Bạn không có quyền thực hiện thao tác này!', 'danger');
+                return;
+            }
+
+            if (confirm('Bạn có chắc chắn muốn xóa tất cả dữ liệu? Thao tác này không thể hoàn tác!')) {
+                data = {
+                    members: [],
+                    contributions: [],
+                    loans: [],
+                    payments: []
+                };
+                
+                saveData();
+                updateStats();
+                updateTables();
+                updateFormOptions();
+                
+                showAlert('Đã xóa tất cả dữ liệu!', 'success');
+            }
+        }
+
+        // Share functionality
+        function shareViewLink() {
+            const currentUrl = window.location.href.split('?')[0];
+            const shareUrl = currentUrl + '?view=only';
+            
+            document.getElementById('shareUrl').textContent = shareUrl;
+            document.getElementById('shareModal').style.display = 'block';
+        }
+
+        function copyShareUrl() {
+            const shareUrl = document.getElementById('shareUrl').textContent;
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                showAlert('Đã copy link vào clipboard!', 'success');
+                closeModal();
+            }).catch(() => {
+                showAlert('Không thể copy link. Vui lòng copy thủ công.', 'danger');
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('shareModal').style.display = 'none';
+        }
+
+        // Utility functions
+        function showAlert(message, type) {
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.alert');
+            existingAlerts.forEach(alert => alert.remove());
+
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            const container = document.querySelector('.container');
+            container.insertBefore(alert, container.firstChild);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('shareModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
